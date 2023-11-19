@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\user\Desktop\web23\lab2023\lab3\ve
+set VIRTUAL_ENV=C:\Users\Messmate\Documents\GitHub\Kucher-211-331-web-dev-2023-2\lab3\ve
 
 if not defined PROMPT set PROMPT=$P$G
 
