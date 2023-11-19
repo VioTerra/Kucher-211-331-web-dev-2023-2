@@ -2,17 +2,12 @@ from flask import Flask, render_template, session, request, redirect, url_for, f
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 
 app = Flask(__name__)
-# Создаем экземпляр приложения
 application = app
-# Пишем, чтобы на хостинге всё запускалось
 
-# Нужен секретный ключ, чтобы работать с сессией. Сам ключ генерируем в отдельном файле и импортируем его.
 app.config.from_pyfile('config.py')
 
 login_manager = LoginManager()
-# Создан экземпляр класса
 login_manager.init_app(app)
-# Даем приложению знать о существования логин менеджера
 
 login_manager.login_view = 'login'
 login_manager.login_message = 'Для доступа к этой странице нужно авторизироваться.'
@@ -23,12 +18,10 @@ class User(UserMixin):
         self.id = user_id
         self.login = user_login
 
-# Главная страничка
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Страничка со счетчиком колличества посещений (для каждого пользователя)
 @app.route('/visits')
 def visits():
     # Счётчик
@@ -38,7 +31,6 @@ def visits():
         session['visits_count'] = 1
     return render_template('visits.html')
 
-# Страница c аутентификация пользователей
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -64,7 +56,6 @@ def logout():
 def secret_page():
     return render_template('secret_page.html')
 
-# Функция загрузки пользователя по идентификатору из БД
 @login_manager.user_loader
 def load_user(user_id):
     for user in get_users():
@@ -72,7 +63,6 @@ def load_user(user_id):
             return User(user['id'], user['login'])
     return None
 
-# Функция, которая возвращает список пользователей (имитация БД)
 def get_users():
     users = [{
         "id": 1,
